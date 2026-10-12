@@ -142,14 +142,6 @@ const DATA = {
       link: "https://github.com/lemon150637/ai-law-search-miniapp",
     },
     {
-      tags: ["LLM", { zh: "迭代中", en: "In iteration", cls: "tag-wip" }],
-      title: { zh: "法条智检 · LLM 增强版小程序", en: "Law Check · LLM-enhanced mini program" },
-      desc: { zh: "可控引入 DeepSeek：密钥只留在服务端、司法解释走结构化召回不让模型编造、后端负责鉴权限流。下一代检索架构在 roadmap 里。",
-              en: "Controlled DeepSeek integration: keys server-side only, judicial interpretations recalled from structured data, backend handles auth & rate-limiting." },
-      tools: "Node · DeepSeek API",
-      link: "https://github.com/lemon150637/ai-law-llm-miniapp",
-    },
-    {
       tags: [{ zh: "PRD 驱动", en: "PRD-driven", cls: "tag-live" }, "AGPL"],
       title: { zh: "个人法学文献阅读器", en: "Personal legal literature reader" },
       desc: { zh: "从 1.9 万字 PRD 出发，基于 Koodo Reader 二次开发：新增论文元数据面板（期刊/DOI/方法/结论）、独立存储、Markdown 导出，最小侵入上游。",
@@ -169,14 +161,6 @@ const DATA = {
       link: "https://github.com/lemon150637/literature-workbench-react",
       demo: "demo/workbench/index.html",
       demoEmoji: "序",
-    },
-    {
-      tags: ["Python", { zh: "数据流水线", en: "Data pipeline", cls: "" }],
-      title: { zh: "法条依据结构化数据流水线", en: "Law provision structuring pipeline" },
-      desc: { zh: "把裁判文书与法规原文变成结构化数据：抓取 → 清洗 → 条文切分 → 案例法条关联 → Excel 交付。检索产品的数据地基，多版本迭代痕迹完整保留。",
-              en: "Turns judgments and statutes into structured data: fetch → clean → segment → link cases to provisions → Excel. The data foundation under the search products." },
-      tools: "Python · openpyxl",
-      link: "https://github.com/lemon150637/law-clause-pipeline",
     },
   ],
 
