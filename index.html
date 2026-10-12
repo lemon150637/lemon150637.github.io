@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Product Builder · 作品集</title>
+  <meta name="description" content="泛 AI 产品经理作品集：用 AI 工具从 0 到 1 构建、部署并迭代产品。AI PM portfolio: building products 0→1 with AI-native workflows." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2313326e'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Georgia'>P</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#top">AI Product Builder</a>
+      <div class="nav-right">
+        <button id="langToggle" class="lang-toggle" type="button" aria-label="switch language">EN</button>
+        <a class="nav-github" href="https://github.com/lemon150637" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <header id="top" class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow" data-i18n="hero.eyebrow">泛 AI 产品经理 · AI 原生工作流</p>
+      <h1 class="hero-title" data-i18n="hero.title">用 AI 把想法变成<br/><em>能上线的产品</em></h1>
+      <p class="hero-sub" data-i18n="hero.sub">我不只写 PRD——从用户场景、产品文档，到数据流水线、双端开发、部署上线，全程用 AI 工具链交付。这里是我的全部作品。</p>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">6</span><span class="stat-label" data-i18n="hero.stat1">个交付产品</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label" data-i18n="hero.stat2">个平台形态</span></div>
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label" data-i18n="hero.stat3">个 Coze 智能体</span></div>
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#projects" data-i18n="hero.cta1">看作品</a>
+        <a class="btn btn-ghost" href="https://github.com/lemon150637" target="_blank" rel="noopener" data-i18n="hero.cta2">GitHub 主页</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="section" id="method">
+      <div class="section-head">
+        <p class="section-eyebrow" data-i18n="method.eyebrow">工作方法</p>
+        <h2 class="section-title" data-i18n="method.title">AI 原生的产品交付流程</h2>
+      </div>
+      <div class="method-grid">
+        <div class="method-step">
+          <span class="step-num">01</span>
+          <h3 data-i18n="method.s1t">从用户场景出发写 PRD</h3>
+          <p data-i18n="method.s1d">先定义问题和边界：用户是谁、痛点是什么、P0/P1/P2 怎么划。文献阅读器项目直接产出了 1.9 万字 PRD。</p>
+        </div>
+        <div class="method-step">
+          <span class="step-num">02</span>
+          <h3 data-i18n="method.s2t">AI 结对，我来架构与验收</h3>
+          <p data-i18n="method.s2d">Codex / Cursor / WorkBuddy / Claude 写代码，我做技术选型、安全边界设计（密钥不进前端）、结果验收。人机分工明确。</p>
+        </div>
+        <div class="method-step">
+          <span class="step-num">03</span>
+          <h3 data-i18n="method.s3t">最快路径部署上线</h3>
+          <p data-i18n="method.s3d">CloudBase 静态托管、GitHub Pages、微信开发者工具真机验证——能上线就不停在 demo。</p>
+        </div>
+        <div class="method-step">
+          <span class="step-num">04</span>
+          <h3 data-i18n="method.s4t">诚实度量，快速迭代</h3>
+          <p data-i18n="method.s4d">自检脚本回归、模拟器 + 真机双验证；每个 README 如实标注"已验证 / 待开发"的边界——对用户诚实，也是对产品诚实。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="story">
+      <div class="section-head">
+        <p class="section-eyebrow" data-i18n="story.eyebrow">主线产品</p>
+        <h2 class="section-title" data-i18n="story.title">「智慧识别」：一个需求的四代演进</h2>
+        <p class="section-desc" data-i18n="story.desc">普通人查法条这件事，我做了四代：从数据地基，到网站，到小程序，再到接入大模型。每一代解决上一代的真实短板。</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-marker">v0</div>
+          <div class="tl-body">
+            <h3 data-i18n="story.v0t">数据地基 · Python 流水线</h3>
+            <p data-i18n="story.v0d">裁判文书和法规都是非结构化长文本。先写流水线把"案例 × 法条"关联结构化，产出 Excel 数据表——检索产品先要有可检索的数据。</p>
+            <a class="tl-link" href="https://github.com/lemon150637/law-clause-pipeline" target="_blank" rel="noopener">law-clause-pipeline →</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker">v1</div>
+          <div class="tl-body">
+            <h3 data-i18n="story.v1t">网站版 · 规则引擎，已部署</h3>
+            <p data-i18n="story.v1d">大白话输入 → 相关度排序 → 智能分析报告（风险提示 / 证据清单 / 诉讼时效检测）。108 条条文 + 25 个纠纷场景，纯静态零成本部署 CloudBase。</p>
+            <a class="tl-link" href="https://github.com/lemon150637/ai-law-search-web" target="_blank" rel="noopener">ai-law-search-web →</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker">v1.x</div>
+          <div class="tl-body">
+            <h3 data-i18n="story.v1xt">小程序版 · 双端复用</h3>
+            <p data-i18n="story.v1xd">用户在微信里，不在浏览器里。数据层、检索算法、分析规则三同源迁移，一次设计两端交付，7 个页面。</p>
+            <a class="tl-link" href="https://github.com/lemon150637/ai-law-search-miniapp" target="_blank" rel="noopener">ai-law-search-miniapp →</a>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-marker">v2</div>
+          <div class="tl-body">
+            <h3 data-i18n="story.v2t">LLM 版 · 可控地引入大模型</h3>
+            <p data-i18n="story.v2d">关键词召回追不上用户问法，引入 DeepSeek——但密钥绝不进前端、司法解释文号与效力状态用结构化库召回而非让模型编造。哪些不交给模型，是产品决策。</p>
+            <a class="tl-link" href="https://github.com/lemon150637/ai-law-llm-miniapp" target="_blank" rel="noopener">ai-law-llm-miniapp →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head">
+        <p class="section-eyebrow" data-i18n="proj.eyebrow">全部作品</p>
+        <h2 class="section-title" data-i18n="proj.title">项目作品集</h2>
+      </div>
+      <div class="proj-grid" id="projGrid"><!-- JS 渲染 --></div>
+    </section>
+
+    <section class="section section-alt" id="coze">
+      <div class="section-head">
+        <p class="section-eyebrow" data-i18n="coze.eyebrow">Agent 能力</p>
+        <h2 class="section-title" data-i18n="coze.title">Coze 智能体系列</h2>
+        <p class="section-desc" data-i18n="coze.desc">发布在扣子商店的三个智能体——用平台化工具把 AI 能力做成开箱即用的产品。</p>
+      </div>
+      <div class="coze-grid" id="cozeGrid"><!-- JS 渲染 --></div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-head">
+        <p class="section-eyebrow" data-i18n="about.eyebrow">关于我</p>
+        <h2 class="section-title" data-i18n="about.title">产品经理 × AI 原生</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-card">
+          <h3 data-i18n="about.a1t">产品能力</h3>
+          <ul>
+            <li data-i18n="about.a1l1">产品文档：PRD / 用户场景 / 竞品分析 / P0-P2 范围管理</li>
+            <li data-i18n="about.a1l2">数据思维：Python 数据流水线 / Tableau 可视化</li>
+            <li data-i18n="about.a1l3">原型能力：Axure 交互原型 / 前端可运行原型</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3 data-i18n="about.a2t">AI 工具链</h3>
+          <ul>
+            <li data-i18n="about.a2l1">智能体搭建：Coze（Bot / 工作流 / 发布上架）</li>
+            <li data-i18n="about.a2l2">AI 编码：Codex / Cursor / Claude Code / WorkBuddy</li>
+            <li data-i18n="about.a2l3">模型集成：DeepSeek 等 OpenAI 兼容 API / RAG 检索设计</li>
+          </ul>
+        </div>
+        <div class="about-card">
+          <h3 data-i18n="about.a3t">产品信念</h3>
+          <ul>
+            <li data-i18n="about.a3l1">能上线的产品 &gt; 完美的文档</li>
+            <li data-i18n="about.a3l2">AI 放大判断力，不能替代判断力——边界设计是产品人的事</li>
+            <li data-i18n="about.a3l3">诚实标注能力边界，是最被低估的产品价值</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p data-i18n="footer.text">© 2026 · 用 AI 构建，也构建 AI 产品 · 源码见各项目仓库</p>
+    <p class="footer-links">
+      <a href="https://github.com/lemon150637" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
