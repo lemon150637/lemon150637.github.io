@@ -168,6 +168,12 @@ a:hover { text-decoration: underline; }
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 .tl-link:hover { color: var(--accent); }
+.tl-actions { display: flex; gap: 18px; margin-top: 10px; flex-wrap: wrap; }
+.tl-demo {
+  font-size: 13.5px; font-weight: 800; color: var(--accent);
+  font-family: inherit; white-space: nowrap;
+}
+.tl-demo:hover { color: #8a5a10; }
 
 /* ============ 项目卡片 ============ */
 .proj-grid {
@@ -194,11 +200,20 @@ a:hover { text-decoration: underline; }
 .proj-meta {
   margin-top: 16px; padding-top: 14px;
   border-top: 1px solid var(--line);
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: space-between; align-items: center; gap: 8px;
 }
 .proj-meta .tools { font-size: 12px; color: #97a0b5; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.proj-meta-right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
 .proj-link { font-size: 13px; font-weight: 700; color: var(--navy); white-space: nowrap; }
 .proj-link:hover { color: var(--accent); text-decoration: none; }
+.proj-demo {
+  font-size: 12px; font-weight: 700;
+  color: #fff; background: var(--accent); border: 1px solid var(--accent);
+  padding: 4px 14px; border-radius: 999px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  font-family: inherit;
+}
+.proj-demo:hover { background: #a06719; border-color: #a06719; }
 
 /* ============ Coze 卡片 ============ */
 .coze-grid {
@@ -223,14 +238,102 @@ a:hover { text-decoration: underline; }
 .coze-card h3 { font-size: 17px; font-weight: 700; color: var(--navy-deep); }
 .coze-card .role { font-size: 12.5px; font-weight: 600; color: var(--accent); margin: 4px 0 10px; }
 .coze-card .desc { font-size: 13.5px; color: var(--ink-soft); }
-.coze-card .coze-link {
-  display: inline-block; margin-top: 16px;
-  font-size: 13px; font-weight: 700;
+.coze-actions {
+  display: flex; justify-content: center; align-items: center; gap: 10px;
+  margin-top: 18px; flex-wrap: wrap;
+}
+.coze-btn {
+  display: inline-block; font-size: 13px; font-weight: 700;
   color: var(--navy); border: 1px solid var(--line);
   padding: 7px 18px; border-radius: 999px;
-  transition: all 0.2s;
+  transition: all 0.2s; cursor: pointer; background: var(--paper);
+  font-family: inherit;
 }
-.coze-card .coze-link:hover { border-color: var(--navy); color: var(--navy); text-decoration: none; background: #edf1fb; }
+.coze-btn:hover { border-color: var(--navy); color: var(--navy); text-decoration: none; background: #edf1fb; }
+.coze-btn-demo {
+  background: var(--navy); color: #fff; border-color: var(--navy);
+}
+.coze-btn-demo:hover { background: var(--navy-deep); color: #fff; border-color: var(--navy-deep); }
+
+/* ============ 通用 Demo 模态框（Coze / 项目 Demo / PRD 共用） ============ */
+.demo-modal {
+  position: fixed; inset: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(13, 35, 71, 0.55);
+  backdrop-filter: blur(4px);
+  padding: 24px;
+}
+.demo-modal[hidden] { display: none; }
+.demo-dialog {
+  background: var(--paper);
+  border-radius: 16px;
+  width: min(980px, 94vw);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(13, 35, 71, 0.35);
+}
+.demo-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 20px; border-bottom: 1px solid var(--line);
+}
+.demo-head-title {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 15.5px; font-weight: 700; color: var(--navy-deep);
+}
+.demo-emoji {
+  width: 34px; height: 34px; border-radius: 50%; flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 800;
+  background: linear-gradient(135deg, #edf1fb, #fdf6e9);
+  color: var(--navy); border: 1px solid #d5def0;
+}
+.demo-head-actions { display: flex; align-items: center; gap: 12px; }
+.demo-open {
+  font-size: 13px; font-weight: 600; color: var(--navy);
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 5px 14px; transition: all 0.2s; white-space: nowrap;
+}
+.demo-open:hover { border-color: var(--navy); text-decoration: none; background: #edf1fb; }
+.demo-close {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--line); background: var(--paper);
+  font-size: 15px; font-weight: 700; color: var(--ink-soft);
+  cursor: pointer; transition: all 0.2s; line-height: 1;
+}
+.demo-close:hover { border-color: #c0392b; color: #c0392b; background: #fdf0ee; }
+.demo-frame {
+  position: relative;
+  width: 100%;
+  height: min(72vh, 760px);
+  background: var(--paper-alt);
+}
+.demo-frame iframe {
+  width: 100%; height: 100%;
+  border: 0; display: block;
+  background: #fff;
+}
+.demo-loading {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 14px;
+  background: var(--paper);
+  padding: 20px; text-align: center;
+}
+.demo-loading-text { font-size: 15px; font-weight: 600; color: var(--ink-soft); }
+.demo-hint { font-size: 12.5px; color: #97a0b5; max-width: 320px; }
+.demo-spinner {
+  width: 34px; height: 34px;
+  border: 3px solid #e5e8f0; border-top-color: var(--navy);
+  border-radius: 50%;
+  animation: demoSpin 0.9s linear infinite;
+}
+@keyframes demoSpin { to { transform: rotate(360deg); } }
+@media (max-width: 600px) {
+  .demo-modal { padding: 10px; }
+  .demo-frame { height: 76vh; }
+  .demo-head { padding: 10px 14px; }
+  .demo-open { padding: 4px 10px; font-size: 12px; }
+}
 
 /* ============ 关于 ============ */
 .about-grid {

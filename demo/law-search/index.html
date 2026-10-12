@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智慧识别 · 民法条文精准检索与智能分析</title>
+<meta name="description" content="面向大众的法律咨询工具：民法条文精准检索、智能法律分析、历史记录与收藏，支持自有结构化 JSON 数据接入">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>⚖️</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hero-glow"></div>
+  <div class="container header-inner">
+    <div class="brand">
+      <div class="brand-logo">
+        <svg viewBox="0 0 48 48" width="44" height="44" fill="none">
+          <rect x="2" y="2" width="44" height="44" rx="12" fill="rgba(212,169,78,.16)" stroke="rgba(212,169,78,.45)" stroke-width="1.5"/>
+          <path d="M24 8v30M14 14h20" stroke="#d4a94e" stroke-width="2.4" stroke-linecap="round"/>
+          <path d="M10 14l4-5 4 5c0 2.2-1.8 4-4 4s-4-1.8-4-4zM30 14l4-5 4 5c0 2.2-1.8 4-4 4s-4-1.8-4-4z" fill="#d4a94e"/>
+          <path d="M17 38h14M12 10l2 4M36 10l-2 4" stroke="#d4a94e" stroke-width="2.4" stroke-linecap="round"/>
+          <circle cx="24" cy="6.5" r="2.2" fill="#e8c87e"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="brand-name">智慧识别</h1>
+        <p class="brand-sub">条文精准检索 · 智能法律分析 · 个人文献阅读</p>
+      </div>
+    </div>
+    <div class="header-badges">
+      <span class="badge" id="statProvisions">加载中…</span>
+      <span class="badge badge-gold">📚 文献阅读 · 📂 JSON 数据接入</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs-wrap">
+  <div class="container tabs" id="tabs">
+    <button class="tab active" data-page="search"><span class="tab-ico">🔍</span>条文检索</button>
+    <button class="tab" data-page="analysis"><span class="tab-ico">🧠</span>智能分析</button>
+    <button class="tab" data-page="library"><span class="tab-ico">📚</span>文献阅读</button>
+    <button class="tab" data-page="favorites"><span class="tab-ico">⭐</span>我的收藏</button>
+    <button class="tab" data-page="history"><span class="tab-ico">🕘</span>历史记录</button>
+    <button class="tab" data-page="data"><span class="tab-ico">📂</span>数据接入</button>
+    <button class="tab" data-page="help"><span class="tab-ico">❓</span>使用帮助</button>
+  </div>
+</nav>
+
+<main class="container">
+
+  <!-- ================= 条文检索 ================= -->
+  <section id="page-search" class="page active">
+    <div class="card search-panel">
+      <div class="search-box">
+        <span class="search-ico">🔎</span>
+        <input id="searchInput" type="text" autocomplete="off"
+               placeholder="输入案情关键词，如：借钱不还 利息 ／ 离婚 抚养权 ／ 高空抛物 ／ 定金 违约金…">
+        <button id="searchBtn" class="btn btn-primary">检 索</button>
+      </div>
+      <div class="search-tips" id="hotSearch">
+        热门：<span class="hot-items"></span>
+      </div>
+      <div class="filters">
+        <select id="filterLaw"><option value="">全部法规</option></select>
+        <select id="filterPart"><option value="">全部编章</option></select>
+        <select id="sortSel">
+          <option value="relevance">按相关度排序</option>
+          <option value="article">按条文顺序排序</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="searchStats" class="search-stats"></div>
+    <div id="searchResults" class="results"></div>
+    <div id="searchEmpty" class="empty-tip">
+      输入关键词开始检索。<br>
+      <small>支持自然语言描述，如「装修师傅拖延工期可以要求赔偿吗」</small>
+    </div>
+  </section>
+
+  <!-- ================= 智能分析 ================= -->
+  <section id="page-analysis" class="page">
+    <div class="card analysis-panel">
+      <label class="field-label" for="caseText">
+        📝 描述你遇到的法律问题
+        <span class="label-hint">（建议包含：时间 · 人物关系 · 金额 · 对方行为 · 你的损失）</span>
+      </label>
+      <textarea id="caseText" rows="7"
+        placeholder="例：2022年3月，朋友向我借了5万元，写了借条约定一年后归还，到期后一直拖着不还，微信催了很多次都没用，请问我该怎么办？"></textarea>
+      <div class="scene-title">试试这些常见场景：</div>
+      <div class="scene-chips" id="sceneChips"></div>
+      <div class="analysis-actions">
+        <button id="analyzeBtn" class="btn btn-primary btn-lg">🧠 生成法律分析</button>
+        <button id="clearCaseBtn" class="btn btn-ghost">清空</button>
+      </div>
+    </div>
+    <div id="analysisReport" class="analysis-report"></div>
+  </section>
+
+  <!-- ================= 文献阅读（个人资料库） ================= -->
+  <section id="page-library" class="page">
+    <div class="card lib-stats" id="libStats">正在加载文献库…</div>
+    <div class="lib-layout">
+      <aside class="lib-side">
+        <div class="lib-side-h">📚 文献库</div>
+        <nav id="libNav">
+          <button class="lib-nav-item active" data-view="inbox">📥 收件箱 <span class="cnt" id="cntInbox">0</span></button>
+          <button class="lib-nav-item" data-view="all">📄 全部文献 <span class="cnt" id="cntAll">0</span></button>
+          <div class="lib-side-h small">🗂 主题</div>
+          <div id="libTopics"></div>
+          <button class="lib-nav-item" data-view="trash">🗑️ 回收站 <span class="cnt" id="cntTrash">0</span></button>
+        </nav>
+        <button class="btn btn-ghost btn-sm lib-topic-manage" id="manageTopicsBtn">🗂️ 管理主题</button>
+      </aside>
+      <div class="lib-main">
+        <div class="card lib-import">
+          <div class="dropzone" id="dropzone" title="点击选择文件，或直接拖放">
+            <input type="file" id="docFileInput" multiple accept=".pdf,.docx,.txt,.md" hidden>
+            <div class="dz-inner">
+              <div class="dz-ico">📄</div>
+              <b>拖放文件到此处，或点击选择</b>
+              <small>支持 PDF · DOCX · TXT · Markdown（解析在本机完成，不上传）</small>
+            </div>
+          </div>
+          <div class="import-actions">
+            <button id="pasteImportBtn" class="btn btn-ghost">📝 粘贴文本</button>
+            <button id="urlImportBtn" class="btn btn-ghost">🌐 导入网页 URL</button>
+            <button id="backupBtn" class="btn btn-ghost">💾 备份数据</button>
+            <button id="restoreBtn" class="btn btn-ghost">♻️ 恢复备份</button>
+            <input type="file" id="restoreInput" accept=".json" hidden>
+          </div>
+          <div id="importMsg" class="upload-msg"></div>
+        </div>
+        <div class="card lib-filter-card">
+          <input id="libSearch" type="text" placeholder="🔍 搜索标题 / 作者 / 正文 / 笔记…">
+          <select id="libFilterType">
+            <option value="">全部类型</option>
+            <option value="pdf">PDF</option>
+            <option value="docx">Word</option>
+            <option value="txt">文本</option>
+            <option value="web">网页</option>
+          </select>
+          <select id="libFilterStatus">
+            <option value="">全部状态</option>
+            <option value="inbox">未读</option>
+            <option value="reading">阅读中</option>
+            <option value="done">已读</option>
+          </select>
+        </div>
+        <div id="libList" class="doc-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 我的收藏 ================= -->
+  <section id="page-favorites" class="page">
+    <div class="card">
+      <div class="page-head">
+        <h2 class="card-title">⭐ 我的收藏（<span id="favCount">0</span> 条）</h2>
+        <button id="clearFavBtn" class="btn btn-danger-ghost btn-sm">🗑️ 清空收藏</button>
+      </div>
+      <p class="muted">在检索结果或条文详情中点击 ☆ 即可收藏条文，方便下次快速查阅。数据保存在本机浏览器中。</p>
+      <div id="favoritesList" class="fav-list"></div>
+    </div>
+  </section>
+
+  <!-- ================= 历史记录 ================= -->
+  <section id="page-history" class="page">
+    <div class="card">
+      <div class="page-head">
+        <h2 class="card-title">🕘 检索历史</h2>
+        <button id="clearSearchHistBtn" class="btn btn-danger-ghost btn-sm">🗑️ 清空检索历史</button>
+      </div>
+      <div id="searchHistoryList" class="hist-list"></div>
+    </div>
+    <div class="card">
+      <div class="page-head">
+        <h2 class="card-title">📋 分析历史</h2>
+        <button id="clearAnaHistBtn" class="btn btn-danger-ghost btn-sm">🗑️ 清空分析历史</button>
+      </div>
+      <div id="analysisHistoryList" class="hist-list"></div>
+    </div>
+  </section>
+
+  <!-- ================= 数据接入 ================= -->
+  <section id="page-data" class="page">
+    <div class="card">
+      <h2 class="card-title">📂 接入你自己的结构化 JSON 数据</h2>
+      <p class="muted">按下面的格式准备 JSON 文件，上传后即合并进检索与分析引擎（保存在本机浏览器中，可随时导出或删除）。</p>
+      <pre class="code-block" id="formatDoc"></pre>
+      <div class="upload-row">
+        <input type="file" id="uploadInput" accept=".json,application/json">
+        <button id="exportBtn" class="btn btn-ghost">⬇️ 导出自定义数据</button>
+        <button id="clearCustomBtn" class="btn btn-danger-ghost">🗑️ 删除全部自定义数据</button>
+      </div>
+      <div id="uploadMsg" class="upload-msg"></div>
+    </div>
+    <div class="card">
+      <h2 class="card-title">📚 当前自定义条文（<span id="customCount">0</span> 条）</h2>
+      <div id="customList" class="custom-list"></div>
+    </div>
+  </section>
+
+  <!-- ================= 使用帮助 ================= -->
+  <section id="page-help" class="page">
+    <div class="card">
+      <h2 class="card-title">🚀 快速上手</h2>
+      <ol class="steps">
+        <li><b>条文检索</b>：输入关键词（如「押金 不退」「抚养费」），系统按相关度排序展示最匹配的条文，点击条文查看全文与通俗解读，点 ☆ 收藏常用条文。</li>
+        <li><b>智能分析</b>：把你的情况完整描述出来，系统会识别纠纷类型、匹配适用法条、给出分析要点与行动建议。</li>
+        <li><b>文献阅读</b>：拖入 PDF / DOCX / TXT 或粘贴网页正文建立个人资料库；阅读时<b>划选原文即可摘录</b>（自动记录页码段落），写下个人思考，按主题归集，一键导出结构化 JSON，并支持完整备份。</li>
+        <li><b>我的收藏</b>：收藏的条文集中管理，一键打开、取消收藏。</li>
+        <li><b>历史记录</b>：自动保存最近的检索词与分析报告，点击即可重新查看，无需重复输入。</li>
+        <li><b>数据接入</b>：上传自己整理的 JSON 条文数据（格式见「数据接入」页），即可检索自己的法规库。</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h2 class="card-title">🌐 如何让别人访问我的网站？（小白部署教程）</h2>
+      <div class="help-grid">
+        <div class="help-item">
+          <h3>方式一：本机使用（零部署）</h3>
+          <p>直接双击 <code>index.html</code> 用 Chrome / Edge 打开即可，无需任何服务器。</p>
+        </div>
+        <div class="help-item">
+          <h3>方式二：部署到互联网</h3>
+          <p>网站是纯静态页面，把整个 <code>legal-website</code> 文件夹上传到静态托管（腾讯云 CloudBase / EdgeOne Pages 等）即可获得一个公网网址。详细图文步骤见项目根目录的 <b>《使用说明.md》</b>。</p>
+        </div>
+      </div>
+      <p class="muted">⚠️ 常见问题：双击打开后功能异常 → 换 Chrome/Edge 浏览器；导入数据不生效 → 某些浏览器限制本地文件存储，改用「本地服务器」方式（见使用说明）。</p>
+    </div>
+    <div class="card">
+      <h2 class="card-title">🔒 数据隐私说明</h2>
+      <p class="muted">条文收藏、历史记录与自定义条文保存在<b>你自己的浏览器本地</b>（localStorage）；<b>文献阅读</b>模块的全部资料（PDF/DOCX/正文、摘录、思考、主题）保存在浏览器 IndexedDB 中，解析过程在本机完成，<b>不上传任何服务器</b>。网页 URL 导入仅在部署了配套服务端（server.js）时由你自己的服务器代为抓取。更换浏览器或电脑后数据不会同步，请定期使用「文献阅读 → 备份数据」导出 JSON 备份。</p>
+    </div>
+    <div class="card">
+      <h2 class="card-title">⚖️ 免责声明</h2>
+      <p class="muted">本工具基于公开法律法规文本与规则模板提供检索与参考性分析，<b>不构成法律意见</b>。法律问题个案差异较大，涉及诉讼、大额财产、人身权益等重大事项，请咨询执业律师。</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- 条文详情弹窗 -->
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose" title="关闭">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ============ 文献阅读工作台（全屏浮层） ============ -->
+<div id="readerView" class="reader-view hidden">
+  <div class="reader-top">
+    <button id="readerBack" class="btn btn-ghost btn-sm">← 返回文献库</button>
+    <div class="reader-title-box">
+      <b id="readerTitle"></b>
+      <span id="readerMeta" class="muted"></span>
+    </div>
+    <div class="reader-tools">
+      <select id="readerStatusSel" title="阅读状态">
+        <option value="inbox">📥 未读</option>
+        <option value="reading">📖 阅读中</option>
+        <option value="done">✅ 已读</option>
+      </select>
+      <button id="readerModeBtn" class="btn btn-ghost btn-sm hidden" title="切换文本/原版模式">🖼 原版模式</button>
+      <button id="fontMinus" class="btn btn-ghost btn-sm" title="缩小字号">A−</button>
+      <button id="fontPlus" class="btn btn-ghost btn-sm" title="放大字号">A+</button>
+    </div>
+  </div>
+  <div class="reader-body">
+    <aside class="reader-toc" id="readerToc"></aside>
+    <div class="reader-content-outer">
+      <div class="reader-content" id="readerContent"></div>
+      <div class="reader-canvas-wrap hidden" id="readerCanvasWrap">
+        <div id="pdfModeTip" class="pdf-mode-tip">🖼 原版模式仅供查看版式；划选摘录请切回文本模式</div>
+        <canvas id="readerCanvas"></canvas>
+        <div class="rc-nav">
+          <button id="pdfPrev" class="btn btn-ghost btn-sm">← 上一页</button>
+          <span id="pdfPageNo" class="muted"></span>
+          <button id="pdfNext" class="btn btn-ghost btn-sm">下一页 →</button>
+        </div>
+      </div>
+    </div>
+    <aside class="reader-notes">
+      <div class="rn-tabs">
+        <button class="rn-tab active" data-rn="notes">📌 笔记（<span id="rnCount">0</span>）</button>
+        <button class="rn-tab" data-rn="info">🧾 来源信息</button>
+      </div>
+      <div class="rn-pane active" data-rn-pane="notes" id="rnNotes">
+        <button class="btn btn-primary btn-sm rn-new-thought" id="newThoughtBtn">✏️ 新建个人思考</button>
+        <div id="noteList"></div>
+      </div>
+      <div class="rn-pane" data-rn-pane="info" id="rnInfo">
+        <div class="form-row"><label>标题</label><input id="infoTitle"></div>
+        <div class="form-row"><label>作者 / 机构</label><input id="infoAuthors" placeholder="缺失可留空，导出时会提示"></div>
+        <div class="form-row"><label>来源类型</label>
+          <select id="infoType">
+            <option value="journal_article">期刊论文</option>
+            <option value="law">法律规范</option>
+            <option value="case">裁判案例</option>
+            <option value="web">网页资讯</option>
+            <option value="book">书籍</option>
+            <option value="other">其他</option>
+          </select>
+        </div>
+        <div class="form-row"><label>来源链接</label><input id="infoUrl" placeholder="https://…"></div>
+        <div class="form-row"><label>发布日期</label><input id="infoDate" type="date"></div>
+        <div class="form-row"><label>备注</label><input id="infoNote"></div>
+        <div id="infoWarn" class="upload-msg"></div>
+        <button class="btn btn-primary btn-sm" id="saveInfoBtn">💾 保存来源信息</button>
+      </div>
+    </aside>
+  </div>
+  <!-- 划选浮动工具条 -->
+  <div id="selPop" class="sel-pop hidden">
+    <button data-act="excerpt">📌 摘录</button>
+    <button data-act="excerpt-think">✏️ 摘录并思考</button>
+    <button data-act="copy">📋 复制引文</button>
+  </div>
+</div>
+
+<!-- 阅读器专用弹窗 -->
+<div id="readerModal" class="modal hidden">
+  <div class="modal-box rmodal-box">
+    <button class="modal-close" id="readerModalClose" title="关闭">×</button>
+    <div id="readerModalBody"></div>
+  </div>
+</div>
+
+<div id="readerToast" class="r-toast hidden"></div>
+
+<footer class="site-footer">
+  <p>⚖️ 智慧识别 v2.0 · 条文检索 / 智能分析 / 法律文献阅读一站式工具</p>
+  <p class="disclaimer">本工具输出仅供学习参考，不构成法律意见。重大事项请咨询执业律师。</p>
+</footer>
+
+<!-- 数据文件（按编加载） -->
+<script src="js/data/zongze.js"></script>
+<script src="js/data/wuquan.js"></script>
+<script src="js/data/hetong.js"></script>
+<script src="js/data/renge.js"></script>
+<script src="js/data/hunyin.js"></script>
+<script src="js/data/jicheng.js"></script>
+<script src="js/data/qinquan.js"></script>
+<script src="js/data/qita.js"></script>
+<!-- 文献解析库（本地化，无需外网） -->
+<script src="js/libs/pdf.min.js"></script>
+<script src="js/libs/mammoth.browser.min.js"></script>
+<!-- 引擎与界面 -->
+<script src="js/search.js"></script>
+<script src="js/analysis-rules.js"></script>
+<script src="js/analysis.js"></script>
+<script src="js/app.js"></script>
+<script src="js/reader-core.js"></script>
+<script src="js/reader-ui.js"></script>
+</body>
+</html>

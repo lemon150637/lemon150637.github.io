@@ -1,7 +1,7 @@
 /* ============================================================
  * 作品集数据与渲染
  * ★ 修改作品信息请编辑下方 DATA 对象（zh = 中文，en = 英文）
- * ★ Coze 智能体的 store 链接与介绍目前为占位内容，拿到真实链接后替换
+ * ★ Coze 智能体链接为扣子商店真实分享链接，卡片可站内 iframe 体验
  * ============================================================ */
 
 const DATA = {
@@ -37,10 +37,13 @@ const DATA = {
       v2t: "LLM 版 · 可控地引入大模型",
       v2d: "关键词召回追不上用户问法，引入 DeepSeek——但密钥绝不进前端、司法解释文号与效力状态用结构化库召回而非让模型编造。哪些不交给模型，是产品决策。",
     },
-    proj: { eyebrow: "全部作品", title: "项目作品集" },
+    proj: { eyebrow: "全部作品", title: "项目作品集", demoBtn: "体验 Demo", prdBtn: "阅读 PRD" },
     coze: {
       eyebrow: "Agent 能力", title: "Coze 智能体系列",
-      desc: "发布在扣子商店的三个智能体——用平台化工具把 AI 能力做成开箱即用的产品。",
+      desc: "发布在扣子商店的三个智能体——点击「体验 Demo」，无需跳转即可在本站直接对话试用。",
+      demoBtn: "体验 Demo", storeBtn: "商店主页",
+      demoOpen: "新窗口打开 ↗", demoLoading: "正在加载智能体…",
+      demoHint: "首次加载可能稍慢；如无法显示，请点「新窗口打开」。",
     },
     about: {
       eyebrow: "关于我", title: "产品经理 × AI 原生",
@@ -92,10 +95,13 @@ const DATA = {
       v2t: "v2 · LLM edition, controlled AI",
       v2d: "Keyword recall can't keep up with user phrasing; added DeepSeek — but keys never enter the frontend, and judicial interpretation numbers/status are recalled from a structured library, not model-generated. What NOT to delegate to the model is a product decision.",
     },
-    proj: { eyebrow: "All work", title: "Project portfolio" },
+    proj: { eyebrow: "All work", title: "Project portfolio", demoBtn: "Try demo", prdBtn: "Read PRD" },
     coze: {
       eyebrow: "Agent skills", title: "Coze agent series",
-      desc: "Three agents published on the Coze store — turning AI capability into ready-to-use products with platform tooling.",
+      desc: "Three agents published on the Coze store — hit \u201cTry demo\u201d to chat with them right here on this site.",
+      demoBtn: "Try demo", storeBtn: "Store page",
+      demoOpen: "Open in new tab ↗", demoLoading: "Loading agent…",
+      demoHint: "First load may take a moment. If it doesn't render, use \u201cOpen in new tab\u201d.",
     },
     about: {
       eyebrow: "About", title: "PM × AI-native",
@@ -124,6 +130,8 @@ const DATA = {
               en: "Plain-language legal search with analysis reports. 108 civil-code provisions, 25 scenario rules, zero-dependency static build, SSRF-guarded server & self-check script." },
       tools: "HTML/JS · CloudBase",
       link: "https://github.com/lemon150637/ai-law-search-web",
+      demo: "demo/law-search/index.html",
+      demoEmoji: "⚖",
     },
     {
       tags: ["WeChat", { zh: "双端复用", en: "Dual-platform", cls: "" }],
@@ -148,6 +156,9 @@ const DATA = {
               en: "Started from a 19k-word PRD; built on Koodo Reader with minimal invasiveness: paper metadata panel (journal/DOI/method), isolated storage, Markdown export." },
       tools: "React · localforage",
       link: "https://github.com/lemon150637/personal-literature-reader",
+      demo: "demo/prd/index.html",
+      demoEmoji: "读",
+      demoKind: "prd",
     },
     {
       tags: ["React", { zh: "原型", en: "Prototype", cls: "tag-wip" }],
@@ -156,6 +167,8 @@ const DATA = {
               en: "Rapid PRD validation: library + traceable Q&A. Runs keyless with local search by default; real-model mode uploads only the question + 8 snippets, answers must cite sources." },
       tools: "React · Vite · Node",
       link: "https://github.com/lemon150637/literature-workbench-react",
+      demo: "demo/workbench/index.html",
+      demoEmoji: "序",
     },
     {
       tags: ["Python", { zh: "数据流水线", en: "Data pipeline", cls: "" }],
@@ -167,28 +180,28 @@ const DATA = {
     },
   ],
 
-  /* ★ TODO：拿到真实的扣子商店分享链接后替换 link 字段 */
+  /* ---- Coze 智能体（扣子商店已发布，链接为真实分享链接） ---- */
   cozeAgents: [
     {
       emoji: "獬",
       title: "獬豸老师",
       role: { zh: "法学学习智能体", en: "Legal studies tutor" },
       desc: { zh: "以明辨是非的法治神兽「獬豸」为名，面向法学学习者：法条讲解、案例拆解、考点问答。", en: "Named after Xiezhi, the justice beast — law explanation, case breakdown and exam Q&A for law learners." },
-      link: "https://www.coze.cn/store/agent",
+      link: "https://www.coze.cn/s/8H5nVLDk4gU/",
     },
     {
       emoji: "办",
       title: "清小办",
       role: { zh: "办公事务智能体", en: "Office assistant" },
       desc: { zh: "日常办公场景的效率助手：文书起草、流程指引、事务整理。", en: "An efficiency assistant for daily office work: drafting, process guidance and task organization." },
-      link: "https://www.coze.cn/store/agent",
+      link: "https://www.coze.cn/s/spaUt7pECxA/",
     },
     {
       emoji: "职",
       title: "清小职",
       role: { zh: "求职成长智能体", en: "Career assistant" },
       desc: { zh: "面向求职者的成长伙伴：简历打磨、面试模拟、职业规划建议。", en: "A career companion: resume polishing, mock interviews and growth planning." },
-      link: "https://www.coze.cn/store/agent",
+      link: "https://www.coze.cn/s/fxM8vv2DGKM/",
     },
   ],
 };
@@ -196,12 +209,19 @@ const DATA = {
 /* ============ 渲染 ============ */
 
 function renderProjects(lang) {
+  const dict = DATA[lang].proj;
   const grid = document.getElementById("projGrid");
   grid.innerHTML = DATA.projects.map(p => {
     const tags = p.tags.map(t => {
       if (typeof t === "string") return `<span class="tag">${t}</span>`;
       return `<span class="tag ${t.cls || ""}">${t[lang]}</span>`;
     }).join("");
+    const demoBtn = p.demo ? `
+      <button class="proj-demo" type="button"
+        data-demo="${p.demo}"
+        data-demo-title="${p.title[lang]}"
+        data-demo-emoji="${p.demoEmoji || "▶"}"
+        data-demo-open="${p.demo}">${dict[p.demoKind === "prd" ? "prdBtn" : "demoBtn"]}</button>` : "";
     return `
       <article class="proj-card">
         <div class="proj-tags">${tags}</div>
@@ -209,13 +229,14 @@ function renderProjects(lang) {
         <p class="desc">${p.desc[lang]}</p>
         <div class="proj-meta">
           <span class="tools">${p.tools}</span>
-          <a class="proj-link" href="${p.link}" target="_blank" rel="noopener">GitHub →</a>
+          <span class="proj-meta-right">${demoBtn}<a class="proj-link" href="${p.link}" target="_blank" rel="noopener">GitHub →</a></span>
         </div>
       </article>`;
   }).join("");
 }
 
 function renderCoze(lang) {
+  const dict = DATA[lang].coze;
   const grid = document.getElementById("cozeGrid");
   grid.innerHTML = DATA.cozeAgents.map(a => `
     <article class="coze-card">
@@ -223,9 +244,58 @@ function renderCoze(lang) {
       <h3>${a.title}</h3>
       <p class="role">${a.role[lang]}</p>
       <p class="desc">${a.desc[lang]}</p>
-      <a class="coze-link" href="${a.link}" target="_blank" rel="noopener">${lang === "zh" ? "扣子商店 →" : "Coze Store →"}</a>
+      <div class="coze-actions">
+        <button class="coze-btn coze-btn-demo" type="button"
+          data-demo="${a.link}"
+          data-demo-title="${a.title}"
+          data-demo-emoji="${a.emoji}"
+          data-demo-open="${a.link}">${dict.demoBtn}</button>
+        <a class="coze-btn" href="${a.link}" target="_blank" rel="noopener">${dict.storeBtn}</a>
+      </div>
     </article>`).join("");
 }
+
+/* ============ 通用 Demo 模态框（Coze 智能体 / 项目 Demo / PRD 共用） ============ */
+
+const demoModal = document.getElementById("demoModal");
+const demoFrame = document.getElementById("demoFrame");
+const demoLoading = document.getElementById("demoLoading");
+let demoTimer = null;
+
+function openDemo(demo) {
+  document.getElementById("demoEmoji").textContent = demo.emoji;
+  document.getElementById("demoTitle").textContent = demo.title;
+  document.getElementById("demoOpen").href = demo.open;
+  demoFrame.src = demo.url;
+  demoLoading.style.display = "flex";
+  demoModal.hidden = false;
+  document.body.style.overflow = "hidden";
+  clearTimeout(demoTimer);
+  /* 兜底：9 秒后无论如何撤掉 loading（跨域 iframe 加载失败无法感知） */
+  demoTimer = setTimeout(() => { demoLoading.style.display = "none"; }, 9000);
+}
+
+function closeDemo() {
+  demoModal.hidden = true;
+  demoFrame.src = "about:blank";
+  document.body.style.overflow = "";
+  clearTimeout(demoTimer);
+}
+
+demoFrame.addEventListener("load", () => { demoLoading.style.display = "none"; });
+document.getElementById("demoClose").addEventListener("click", closeDemo);
+demoModal.addEventListener("click", e => { if (e.target === demoModal) closeDemo(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !demoModal.hidden) closeDemo(); });
+document.addEventListener("click", e => {
+  const btn = e.target.closest("[data-demo]");
+  if (!btn || !btn.dataset.demo) return;
+  openDemo({
+    url: btn.dataset.demo,
+    title: btn.dataset.demoTitle || "Demo",
+    emoji: btn.dataset.demoEmoji || "▶",
+    open: btn.dataset.demoOpen || btn.dataset.demo,
+  });
+});
 
 /* ============ i18n ============ */
 

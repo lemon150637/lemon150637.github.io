@@ -91,7 +91,10 @@
           <div class="tl-body">
             <h3 data-i18n="story.v1t">网站版 · 规则引擎，已部署</h3>
             <p data-i18n="story.v1d">大白话输入 → 相关度排序 → 智能分析报告（风险提示 / 证据清单 / 诉讼时效检测）。108 条条文 + 25 个纠纷场景，纯静态零成本部署 CloudBase。</p>
-            <a class="tl-link" href="https://github.com/lemon150637/ai-law-search-web" target="_blank" rel="noopener">ai-law-search-web →</a>
+            <p class="tl-actions">
+              <a class="tl-demo" href="demo/law-search/index.html" target="_blank" rel="noopener">在线体验 →</a>
+              <a class="tl-link" href="https://github.com/lemon150637/ai-law-search-web" target="_blank" rel="noopener">ai-law-search-web →</a>
+            </p>
           </div>
         </div>
         <div class="tl-item">
@@ -171,6 +174,30 @@
       <a href="https://github.com/lemon150637" target="_blank" rel="noopener">GitHub</a>
     </p>
   </footer>
+
+  <!-- Coze 智能体站内体验模态框 -->
+  <div class="demo-modal" id="demoModal" hidden>
+    <div class="demo-dialog" role="dialog" aria-modal="true" aria-label="Coze agent demo">
+      <div class="demo-head">
+        <div class="demo-head-title">
+          <span class="demo-emoji" id="demoEmoji">獬</span>
+          <span id="demoTitle"></span>
+        </div>
+        <div class="demo-head-actions">
+          <a id="demoOpen" class="demo-open" href="#" target="_blank" rel="noopener" data-i18n="coze.demoOpen">新窗口打开 ↗</a>
+          <button class="demo-close" id="demoClose" type="button" aria-label="close demo">✕</button>
+        </div>
+      </div>
+      <div class="demo-frame">
+        <div class="demo-loading" id="demoLoading">
+          <div class="demo-spinner"></div>
+          <p class="demo-loading-text" data-i18n="coze.demoLoading">正在加载智能体…</p>
+          <p class="demo-hint" data-i18n="coze.demoHint">首次加载可能稍慢；如无法显示，请点「新窗口打开」。</p>
+        </div>
+        <iframe id="demoFrame" title="Live demo" allow="microphone; clipboard-write"></iframe>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

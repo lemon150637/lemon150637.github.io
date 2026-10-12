@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>个人法学文献阅读与写作工作台 · PRD v1.0</title>
+<meta name="description" content="产品需求文档 PRD v1.0：个人法学文献阅读与写作工作台——收集资料、保留来源、摘录原文、记录思考、主题归档、写作引用、导出数据集。"/>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>📜</text></svg>"/>
+<style>
+:root{--navy:#13326e;--navy-deep:#0d2347;--ink:#1c2333;--ink-soft:#55607a;--line:#e5e8f0;--accent:#b7791f;--accent-soft:#fdf6e9;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);background:#fff;line-height:1.85;-webkit-font-smoothing:antialiased}
+a{color:var(--navy)}
+.doc-head{max-width:920px;margin:0 auto;padding:48px 24px 8px}
+.doc-eyebrow{font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+h1{font-size:clamp(24px,4vw,34px);font-weight:800;color:var(--navy-deep);line-height:1.3;letter-spacing:-.3px}
+.doc-meta{margin-top:12px;font-size:13.5px;color:var(--ink-soft);border-bottom:1px solid var(--line);padding-bottom:24px}
+.doc-body{max-width:920px;margin:0 auto;padding:24px 24px 80px;display:grid;grid-template-columns:200px 1fr;gap:40px}
+.toc{position:sticky;top:24px;align-self:start;max-height:calc(100vh - 48px);overflow:auto;font-size:13px;padding-right:8px}
+.toc-title{font-weight:800;color:var(--navy-deep);font-size:13.5px;margin-bottom:10px}
+.toc ul{list-style:none}
+.toc>ul>li{margin-bottom:6px}
+.toc ul ul{padding-left:14px;margin-top:4px}
+.toc a{color:var(--ink-soft);text-decoration:none;display:block;padding:2px 0}
+.toc a:hover{color:var(--navy)}
+.content{min-width:0}
+.content h2{font-size:21px;font-weight:800;color:var(--navy-deep);margin:40px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--accent-soft)}
+.content h2:first-child{margin-top:8px}
+.content h3{font-size:16.5px;font-weight:700;color:var(--navy-deep);margin:26px 0 10px}
+.content h4{font-size:14.5px;font-weight:700;color:var(--ink);margin:20px 0 8px}
+.content p{font-size:14.8px;margin:10px 0;color:var(--ink)}
+.content ul,.content ol{margin:10px 0 10px 22px;font-size:14.5px}
+.content li{margin-bottom:6px}
+.content table{border-collapse:collapse;width:100%;margin:16px 0;font-size:13.5px}
+.content th{background:#f6f7fa;text-align:left;font-weight:700;color:var(--navy-deep)}
+.content th,.content td{border:1px solid var(--line);padding:8px 12px;vertical-align:top}
+.content tr:nth-child(even) td{background:#fafbfd}
+.content code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.8px;background:#f6f7fa;border:1px solid var(--line);border-radius:4px;padding:1px 6px}
+.content pre{background:var(--navy-deep);color:#e8ecf4;border-radius:10px;padding:16px 18px;overflow:auto;margin:14px 0}
+.content pre code{background:none;border:none;color:inherit;padding:0}
+.content blockquote{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 16px;margin:14px 0;border-radius:0 8px 8px 0;color:#7a5310}
+.content strong{color:var(--navy-deep)}
+.doc-foot{max-width:920px;margin:0 auto;padding:20px 24px 48px;border-top:1px solid var(--line);font-size:12.5px;color:#97a0b5}
+@media(max-width:820px){.doc-body{grid-template-columns:1fr;gap:0}.toc{position:static;max-height:none;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:20px;background:#fafbfd}}
+</style>
+</head>
+<body>
+<header class="doc-head">
+  <p class="doc-eyebrow">Product Requirements Document</p>
+  <h1>个人法学文献阅读与写作工作台 PRD</h1>
+  <p class="doc-meta">版本 v1.0（需求评审稿） · 2026-09-28 · 目标用户：以个人使用为主的法学研究者、学生与写作者 · 完整文档约 1.9 万字结构化需求</p>
+</header>
+<div class="doc-body">
+  <nav class="toc"><p class="toc-title">目录</p><div class="toc">
+<ul>
+<li><a href="#1">1. 背景与产品目标</a></li>
+<li><a href="#2">2. 用户场景</a></li>
+<li><a href="#3">3. 产品原则与范围</a><ul>
+<li><a href="#31-p0">3.1 首版必需（P0）</a></li>
+<li><a href="#32-p1">3.2 后续增强（P1）</a></li>
+<li><a href="#33-p2">3.3 暂不纳入首版（P2）</a></li>
+</ul>
+</li>
+<li><a href="#4">4. 信息架构与主要页面</a><ul>
+<li><a href="#41">4.1 文献库</a></li>
+<li><a href="#42">4.2 阅读工作台</a></li>
+<li><a href="#43">4.3 主题工作台</a></li>
+<li><a href="#44">4.4 导出与备份</a></li>
+</ul>
+</li>
+<li><a href="#5">5. 功能需求与验收条件</a><ul>
+<li><a href="#f01-p0">F01 资料导入（P0）</a></li>
+<li><a href="#f02-p0">F02 来源与文献元数据（P0）</a></li>
+<li><a href="#f03-p0">F03 阅读与原文定位（P0）</a></li>
+<li><a href="#f04-p0">F04 摘录与思考（P0）</a></li>
+<li><a href="#f05-p0">F05 主题与回顾（P0）</a></li>
+<li><a href="#f06-p0">F06 检索与写作引用（P0）</a></li>
+<li><a href="#f07-jsonp0">F07 按主题导出 JSON（P0）</a></li>
+<li><a href="#f08-p0">F08 备份、恢复和删除（P0）</a></li>
+</ul>
+</li>
+<li><a href="#6-json">6. 数据模型与 JSON 契约</a><ul>
+<li><a href="#61-json">6.1 JSON 示例</a></li>
+</ul>
+</li>
+<li><a href="#7">7. 非功能要求</a></li>
+<li><a href="#8">8. 验收与成功指标</a></li>
+<li><a href="#9">9. 实施阶段</a><ul>
+<li><a href="#a">阶段 A：可靠入库与阅读</a></li>
+<li><a href="#b">阶段 B：研究笔记与写作素材</a></li>
+<li><a href="#c">阶段 C：数据集与可靠交付</a></li>
+<li><a href="#d">阶段 D：增强能力</a></li>
+</ul>
+</li>
+<li><a href="#10">10. 待确认决策与默认方案</a></li>
+</ul>
+</div>
+</nav>
+  <main class="content"><h1 id="prd">个人法学文献阅读与写作工作台 PRD</h1>
+<p>版本：v1.0（需求评审稿）<br />
+日期：2026-09-28<br />
+目标用户：以个人使用为主的法学研究者、学生与写作者<br />
+产品定位：将网页、PDF、Word 资料转化为可阅读、可回顾、可引用、可按主题导出的个人研究资料库。</p>
+<h2 id="1">1. 背景与产品目标</h2>
+<p>用户每天阅读大量资讯、论文、法律规范、案例和评论。资料分散在浏览器、下载目录和笔记软件中，阅读时形成的摘录与思考难以与出处长期关联，后续写作需要反复找原文，给大模型提供材料时还要再次整理。</p>
+<p>本产品围绕一条完整流程设计：</p>
+<p>收集资料 → 保留来源 → 阅读定位 → 摘录原文 → 记录思考 → 归入主题 → 回顾检索 → 写作引用 → 导出数据集。</p>
+<p>第一版应让用户完成三个核心任务：</p>
+<ol>
+<li>将一份网页、PDF 或 DOCX 导入后，能够再次打开并定位阅读。</li>
+<li>在同一主题下汇集不同文献的原文摘录和个人思考，并能够追溯出处。</li>
+<li>导出机器可读的 JSON，使每条资料保留内容类型、文献来源和原文位置，供后续问答或写作使用。</li>
+</ol>
+<p>本 PRD 是目标需求，并不表示现有原型已经实现。现有基于 Koodo Reader 的原型已有项目克隆、笔记面板和 Markdown 导出代码；其首页与类型检查已验证，新增笔记完整交互仍待验证。网页采集、可靠定位、主题 JSON 导出和备份恢复均属于待开发范围。</p>
+<h2 id="2">2. 用户场景</h2>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>用户行为</th>
+<th>预期结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每日资讯收集</td>
+<td>粘贴文章链接，或粘贴正文及来源信息</td>
+<td>保存正文快照、标题、作者、发布与采集时间、原始链接</td>
+</tr>
+<tr>
+<td>论文精读</td>
+<td>拖入 PDF，选择一段文字并添加思考</td>
+<td>原文摘录与个人思考分别保存，记录 PDF 页位置</td>
+</tr>
+<tr>
+<td>Word 材料研读</td>
+<td>导入 DOCX，按标题浏览并摘录</td>
+<td>保留正文结构，摘录可定位至段落</td>
+</tr>
+<tr>
+<td>专题研究</td>
+<td>建立“平台责任”等主题，将资料和笔记归入</td>
+<td>一篇文献或一条笔记可属于多个主题</td>
+</tr>
+<tr>
+<td>写作准备</td>
+<td>按主题检索、查看观点、返回出处</td>
+<td>复制引文时一并获得出处和定位信息</td>
+</tr>
+<tr>
+<td>数据集整理</td>
+<td>选择主题和内容范围，导出 JSON</td>
+<td>原文、个人思考、AI 内容可区分，记录可追溯</td>
+</tr>
+<tr>
+<td>定期回顾</td>
+<td>查看未读、阅读中、已读、待复习资料</td>
+<td>可从上次位置继续阅读，或直接回到摘录位置</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3">3. 产品原则与范围</h2>
+<ul>
+<li>原始资料与加工结果分开保存。解析、清洗、OCR、AI 摘要不能覆盖原始文件或网页快照。</li>
+<li>原文摘录、个人思考和 AI 生成内容使用不同类型；界面与导出中均明确标识。</li>
+<li>缺少作者、日期、页码等信息时允许为空并提示补充，不能自动编造。</li>
+<li>本地存储优先。只有用户主动启用外部服务时，才向所选服务发送指定内容。</li>
+<li>导出 JSON 是可进一步用于检索增强问答的数据，不宣称可直接满足任意模型的微调格式。</li>
+<li>法律规范的有效性、案例权威性和观点正确性由用户核验；产品记录核验状态，不因导入而自动判定。</li>
+</ul>
+<h3 id="31-p0">3.1 首版必需（P0）</h3>
+<p>网页 URL 导入及正文粘贴兜底、PDF 与 DOCX 导入、统一文献库、原始资料保存、来源编辑、阅读与进度、摘录定位、个人思考、主题管理、库内文本检索、引用信息复制、主题 JSON 导出、完整备份恢复。</p>
+<h3 id="32-p1">3.2 后续增强（P1）</h3>
+<p>浏览器扩展采集、扫描件 OCR、旧版 DOC 转换、重复文献版本管理、批量元数据补全、引用格式模板、JSONL 与检索分块导出、主题回顾提醒。</p>
+<h3 id="33-p2">3.3 暂不纳入首版（P2）</h3>
+<p>多用户协作、跨设备云同步、移动端、自动法律效力核验、应用内 AI 问答、自动生成文章、与 Word 写作软件深度联动。</p>
+<h2 id="4">4. 信息架构与主要页面</h2>
+<h3 id="41">4.1 文献库</h3>
+<p>左侧：收件箱、全部文献、主题、待回顾、回收站。<br />
+主区域：文献列表和搜索筛选。<br />
+文献卡片展示：标题、作者或机构、资料类型、来源、日期、主题、阅读状态、摘录数、解析状态。</p>
+<h3 id="42">4.2 阅读工作台</h3>
+<p>左侧为目录或页缩略图，中间为原文，右侧为摘录、思考和来源信息。选择原文后提供“摘录”“摘录并思考”“复制含出处引文”。</p>
+<p>每条笔记卡片始终展示内容类型、关联文献、原文位置、所属主题和修改时间。思考可独立创建，也可关联一条或多条摘录。</p>
+<h3 id="43">4.3 主题工作台</h3>
+<p>同屏查看主题说明、文献、摘录和个人思考。支持在主题内搜索、按时间和来源筛选、选择材料加入写作素材清单，以及导出预览。</p>
+<h3 id="44">4.4 导出与备份</h3>
+<p>主题导出用于内容交换；完整备份用于恢复应用。两者明确区分，不能让用户误以为只有文字的 JSON 可以恢复原始 PDF 或 Word 文件。</p>
+<h2 id="5">5. 功能需求与验收条件</h2>
+<h3 id="f01-p0">F01 资料导入（P0）</h3>
+<p>输入方式：拖放文件、文件选择、批量文件、粘贴 URL、粘贴正文。</p>
+<ul>
+<li>网页：获取可访问正文，保留原始 URL、最终 URL、采集时间及正文快照。页面标题、作者和发布日期可自动提取，但需允许用户修正。</li>
+<li>PDF：保留原始文件、提取文本并提供分页阅读。无法提取文本时仍可阅读，显示“扫描件或无可提取文本”，不产生空白的成功摘录。</li>
+<li>DOCX：保留原文件，提取标题、段落、列表和基本表格。预览不承诺与 Word 完全同版式；复杂公式、批注、修订等提取限制应提示。</li>
+<li>DOC：首版显示不支持并建议转换为 DOCX，不将其计入成功导入。</li>
+<li>无法采集的网页提供正文粘贴入口；保留用户输入的 URL，并标记采集方式为手动粘贴。不绕过登录或付费限制。</li>
+<li>每个任务显示排队、处理中、成功、部分成功或失败。失败可重试，单项失败不阻塞批次。</li>
+<li>使用文件内容哈希识别完全相同文件。URL 相同但内容不同的网页提示可能更新，不静默覆盖既有快照。相同标题不作为自动合并依据。</li>
+</ul>
+<p>验收：混合导入 PDF、DOCX 和可访问网页后，成功项可阅读并具有稳定文献 ID；失败项说明原因；重试不产生无提示的重复记录。</p>
+<h3 id="f02-p0">F02 来源与文献元数据（P0）</h3>
+<p>通用字段：标题、作者或机构、来源类型、原始 URL、发布日期、采集日期、导入日期、语言、来源备注。</p>
+<p>按资料类型增加可选字段：</p>
+<ul>
+<li>论文：期刊、年份、卷期、原文页码范围、DOI。</li>
+<li>法律规范：制定机关、文号、公布日、生效日、用户记录的效力状态、状态核验日期和依据。</li>
+<li>案例：法院、案号、裁判日期、案件类型、公开平台。</li>
+<li>网页资讯：网站名称、发布者、访问日期。</li>
+</ul>
+<p>字段标记获取方式：自动提取、用户填写或外部补全；支持“待核验/已核验”。已核验表示用户确认，不表示平台认证。</p>
+<p>验收：信息缺失不妨碍入库，但复制引用和导出时提示；未知值保持 null，不以导入时间冒充发布日期。</p>
+<h3 id="f03-p0">F03 阅读与原文定位（P0）</h3>
+<ul>
+<li>保存每份文献的阅读位置、最后阅读时间及阅读状态。</li>
+<li>PDF 使用从 1 开始的文件页序号，并可另存书内印刷页码；两者不可混淆。</li>
+<li>DOCX 使用导入快照的标题路径和稳定段落标识，必要时记录表格位置；不生成未经验证的 Word 页码。</li>
+<li>网页定位到本地正文快照的段落，并保存选中文字的前后文。</li>
+<li>文本选择记录范围、原文片段和快照版本。跨段落摘录支持多个范围。</li>
+<li>点击摘录应回到绑定的快照并突出显示；无法可靠匹配时显示定位失效提示，不跳到猜测位置。</li>
+</ul>
+<p>验收：重启应用后可继续阅读；PDF、DOCX、网页各至少验证一条摘录可以返回正确位置；网页线上内容变化不破坏已保存快照的定位。</p>
+<h3 id="f04-p0">F04 摘录与思考（P0）</h3>
+<ul>
+<li>原文摘录保存原始选区文本及定位；可另存经过断行清理的文本，但不能替代原始摘录。</li>
+<li>默认不允许直接编辑“原文摘录”。需要改写时创建“个人思考”或“转述”记录。</li>
+<li>个人思考支持独立笔记以及关联多条摘录，支持主题、标签和修改时间。</li>
+<li>笔记自动保存，显示保存中、已保存或失败。离开有未保存内容的页面时提示；保存失败不清空编辑区。</li>
+<li>AI 内容未来使用独立类型，保留生成时间及相关来源，不能自动归类为原文。</li>
+</ul>
+<p>验收：原文与思考在界面和导出中不会混为同一字段；模拟保存失败后内容仍可复制或重试。</p>
+<h3 id="f05-p0">F05 主题与回顾（P0）</h3>
+<ul>
+<li>支持创建、重命名和归档主题；首版使用扁平主题，标签用于进一步分类。</li>
+<li>文献与笔记分别建立多对多主题关系。将文献加入主题不自动意味着其全部笔记均与该主题有关。</li>
+<li>支持主题内按资料类型、阅读状态、标签、日期及有无思考筛选。</li>
+<li>支持手动加入待回顾、标记回顾完成，记录最近回顾时间；自动提醒放入 P1。</li>
+</ul>
+<p>验收：一条摘录加入两个主题只保存一份内容；修改主题名称不改变主题 ID；归档主题不删除文献和笔记。</p>
+<h3 id="f06-p0">F06 检索与写作引用（P0）</h3>
+<ul>
+<li>检索范围包括标题、作者、正文、摘录、个人思考和案号等元数据。扫描件未 OCR 的部分明确不进入全文检索。</li>
+<li>结果展示命中片段、内容类型、文献出处和位置；可打开原文或笔记。</li>
+<li>“复制含出处引文”输出选定摘录及标题、作者、来源、日期、页码/段落等现有信息。</li>
+<li>首版提供清晰的通用出处文本，不宣称完全符合某一期刊或引用标准；规范化样式作为 P1。</li>
+<li>写作素材清单引用原有记录 ID，不复制出与来源脱离的笔记副本。</li>
+</ul>
+<p>验收：通过摘录关键词能检索到对应记录；复制结果不遗漏来源和定位；缺失出处有提示且不被自动填造。</p>
+<h3 id="f07-jsonp0">F07 按主题导出 JSON（P0）</h3>
+<p>导出步骤：选择主题 → 确认范围 → 选择内容类型 → 检查缺失来源及敏感标记 → 预览 → 导出。</p>
+<ul>
+<li>支持多主题并集；同一记录命中多个主题时只输出一次，保留全部主题 ID。</li>
+<li>默认导出直接关联所选主题的摘录与思考，并附上这些记录引用的文献、快照定位信息。</li>
+<li>可显式勾选“包含主题文献的所有笔记”“包含未摘录文献的元数据”“包含文献全文”。全文默认关闭。</li>
+<li>原文、个人思考、转述、AI 内容分别可选；AI 内容默认关闭。</li>
+<li>若选中思考引用了被过滤的摘录，预览说明该依赖，允许补入关联摘录或仅保留明确的外部引用，不产生无法解释的悬空 ID。</li>
+<li>导出前显示文献数、记录数、原文/思考数量、缺失来源数、定位异常数和全文包含情况。</li>
+<li>导出包写入 schema_version、导出时间、应用版本、范围和过滤条件；采用 UTF-8。</li>
+<li>JSON 不嵌入二进制文件，不导出本机绝对路径。每个文件/快照可通过稳定 ID 与内容哈希识别。</li>
+<li>缺少来源可由用户选择排除或带警告导出，不能假装完整。</li>
+</ul>
+<p>验收：文件可被标准 JSON 解析器读取；通过固定版本 JSON Schema 校验；记录 ID 唯一；包内引用可解析或明确标注为外部引用；数量与预览一致。</p>
+<h3 id="f08-p0">F08 备份、恢复和删除（P0）</h3>
+<ul>
+<li>完整备份包含原始文件、正文快照、数据库、笔记、主题与版本清单。</li>
+<li>恢复先校验版本及完整性，预览冲突，再执行；失败保留原有数据。</li>
+<li>文献删除先进入回收站，关联笔记与定位随之保留并可恢复。</li>
+<li>永久删除前展示影响范围并确认；不得留下无提示的孤立笔记。</li>
+<li>网页缓存存储有容量风险，提示使用持久目录或桌面数据目录，提供容量与备份状态。</li>
+</ul>
+<p>验收：在独立测试数据目录恢复备份后，原始文件可打开，主题关系完整，摘录与思考内容相同，定位可用。</p>
+<h2 id="6-json">6. 数据模型与 JSON 契约</h2>
+<p>核心实体：Document（文献）、Snapshot（不可变内容快照）、Annotation（摘录/思考）、Topic（主题）、ReadingState（阅读状态）、WritingCollection（写作素材清单）。</p>
+<p>所有实体使用稳定 UUID。文件名、标题和数组顺序均不能作为关联主键。时间采用 ISO 8601；仅知道日期时保留日期，不补造时分秒。所有缺失信息使用 null 或按 Schema 约定省略。</p>
+<h3 id="61-json">6.1 JSON 示例</h3>
+<p>以下内容完全为虚构演示，仅说明导出结构，不可作为真实引文使用。PDF 示例记录从 1 开始的文件页序号；实际 Schema 还需定义网页和 DOCX 的定位分支。</p>
+<pre><code class="language-json">{
+  &quot;schema_version&quot;: &quot;1.0.0&quot;,
+  &quot;exported_at&quot;: &quot;2026-09-28T12:00:00+08:00&quot;,
+  &quot;app_version&quot;: &quot;0.1.0&quot;,
+  &quot;scope&quot;: {
+    &quot;topic_ids&quot;: [&quot;topic-001&quot;],
+    &quot;mode&quot;: &quot;direct_annotation_membership&quot;,
+    &quot;included_kinds&quot;: [&quot;verbatim_excerpt&quot;, &quot;personal_thought&quot;],
+    &quot;include_full_text&quot;: false
+  },
+  &quot;topics&quot;: [
+    {&quot;id&quot;: &quot;topic-001&quot;, &quot;name&quot;: &quot;平台责任&quot;, &quot;description&quot;: &quot;虚构示例主题&quot;}
+  ],
+  &quot;documents&quot;: [
+    {
+      &quot;id&quot;: &quot;doc-001&quot;,
+      &quot;title&quot;: &quot;平台责任研究（虚构示例）&quot;,
+      &quot;source_type&quot;: &quot;journal_article&quot;,
+      &quot;format&quot;: &quot;pdf&quot;,
+      &quot;authors&quot;: [&quot;示例作者&quot;],
+      &quot;publication&quot;: &quot;示例刊物&quot;,
+      &quot;published_date&quot;: null,
+      &quot;source_url&quot;: null,
+      &quot;doi&quot;: null,
+      &quot;imported_at&quot;: &quot;2026-09-28T09:00:00+08:00&quot;,
+      &quot;source_verification&quot;: &quot;unverified&quot;,
+      &quot;topic_ids&quot;: [&quot;topic-001&quot;]
+    }
+  ],
+  &quot;snapshots&quot;: [
+    {
+      &quot;id&quot;: &quot;snapshot-001&quot;,
+      &quot;document_id&quot;: &quot;doc-001&quot;,
+      &quot;content_sha256&quot;: null,
+      &quot;capture_method&quot;: &quot;file_import&quot;,
+      &quot;extraction_method&quot;: &quot;embedded_pdf_text&quot;,
+      &quot;captured_at&quot;: &quot;2026-09-28T09:00:00+08:00&quot;
+    }
+  ],
+  &quot;annotations&quot;: [
+    {
+      &quot;id&quot;: &quot;note-001&quot;,
+      &quot;kind&quot;: &quot;verbatim_excerpt&quot;,
+      &quot;document_id&quot;: &quot;doc-001&quot;,
+      &quot;snapshot_id&quot;: &quot;snapshot-001&quot;,
+      &quot;text&quot;: &quot;此处是用于说明格式的虚构原文片段。&quot;,
+      &quot;normalized_text&quot;: null,
+      &quot;locator&quot;: {
+        &quot;type&quot;: &quot;pdf&quot;,
+        &quot;page_number&quot;: 3,
+        &quot;printed_page_label&quot;: null,
+        &quot;ranges&quot;: [],
+        &quot;exact_text&quot;: &quot;此处是用于说明格式的虚构原文片段。&quot;,
+        &quot;prefix&quot;: null,
+        &quot;suffix&quot;: null,
+        &quot;verification&quot;: &quot;unverified&quot;
+      },
+      &quot;topic_ids&quot;: [&quot;topic-001&quot;],
+      &quot;tags&quot;: [&quot;注意义务&quot;],
+      &quot;created_at&quot;: &quot;2026-09-28T10:00:00+08:00&quot;,
+      &quot;updated_at&quot;: &quot;2026-09-28T10:00:00+08:00&quot;
+    },
+    {
+      &quot;id&quot;: &quot;note-002&quot;,
+      &quot;kind&quot;: &quot;personal_thought&quot;,
+      &quot;document_id&quot;: &quot;doc-001&quot;,
+      &quot;snapshot_id&quot;: null,
+      &quot;text&quot;: &quot;我的思考：后续可比较不同平台类型下的义务差异。&quot;,
+      &quot;related_annotation_ids&quot;: [&quot;note-001&quot;],
+      &quot;locator&quot;: null,
+      &quot;topic_ids&quot;: [&quot;topic-001&quot;],
+      &quot;tags&quot;: [&quot;写作线索&quot;],
+      &quot;created_at&quot;: &quot;2026-09-28T10:05:00+08:00&quot;,
+      &quot;updated_at&quot;: &quot;2026-09-28T10:05:00+08:00&quot;
+    }
+  ],
+  &quot;warnings&quot;: [
+    {&quot;document_id&quot;: &quot;doc-001&quot;, &quot;code&quot;: &quot;SOURCE_INCOMPLETE&quot;, &quot;fields&quot;: [&quot;published_date&quot;, &quot;source_url&quot;]},
+    {&quot;annotation_id&quot;: &quot;note-001&quot;, &quot;code&quot;: &quot;LOCATOR_UNVERIFIED&quot;},
+    {&quot;snapshot_id&quot;: &quot;snapshot-001&quot;, &quot;code&quot;: &quot;HASH_MISSING&quot;}
+  ]
+}
+</code></pre>
+<p>实际导入成功时应计算内容哈希；示例以 null 展示历史或异常资料的缺失处理。PDF 范围数组实际保存页内坐标或文字范围；为空时不得宣称可以精确高亮。</p>
+<p>面向大模型的后续分块导出（P1）增加 chunk_id、parent_annotation_id 或 document_id、snapshot_id、chunk_index、text、locator、topic_ids、content_kind。分块不可切断来源关系；原文与思考不拼成无法区分的一段。训练集格式另行适配。</p>
+<h2 id="7">7. 非功能要求</h2>
+<p>以下为待用固定测试机验证的目标，不是已实现的承诺：</p>
+<ul>
+<li>容量基线：10,000 份文献、100,000 条笔记；先明确测试机与平均文本规模。</li>
+<li>本地检索 P95 响应目标不超过 2 秒；长任务后台执行并显示进度。</li>
+<li>普通笔记编辑停止后 1 秒内触发保存；保存成功后才能展示“已保存”。</li>
+<li>网页和 DOCX 解析后的 HTML 必须净化，禁用脚本和危险 URL；不执行文献内宏或主动内容。</li>
+<li>文件扩展名与实际格式交叉检查；损坏或加密文件提供明确错误。</li>
+<li>默认外部请求应可说明用途；不得将全文、笔记或用户数据悄悄发送给 AI 服务。</li>
+<li>数据升级需有版本迁移及失败恢复方案；备份需校验文件缺失和哈希。</li>
+<li>基本交互支持键盘、可读状态提示及清晰的原文/个人观点标签。</li>
+</ul>
+<h2 id="8">8. 验收与成功指标</h2>
+<p>首版发布必须完成一条真实端到端流程：网页、PDF、DOCX 各导入一份 → 各创建摘录和思考 → 归入同一主题 → 关闭并重启 → 返回原文位置 → 复制含出处引文 → 导出 JSON → Schema 与引用完整性校验 → 完整备份恢复。</p>
+<p>另外覆盖：重复导入、网页失效、扫描 PDF、中文乱码、缺失作者、同名文件、跨段落摘录、笔记保存失败、多主题去重、主题归档、回收站恢复及恢复冲突。</p>
+<p>产品成效通过用户试用观察，不依赖默认上传行为数据：</p>
+<ul>
+<li>能否在 30 秒内从一条写作素材返回出处。</li>
+<li>摘录是否全部保留来源关联和类型标记。</li>
+<li>一次主题导出是否无需手工修复即可解析与检索。</li>
+<li>重启与备份恢复是否发生内容或关联丢失。</li>
+<li>用户每周从已有文献中实际复用多少条写作素材。</li>
+</ul>
+<h2 id="9">9. 实施阶段</h2>
+<h3 id="a">阶段 A：可靠入库与阅读</h3>
+<p>确认本地数据目录和统一数据模型；接入网页、PDF、DOCX；完成导入状态、来源编辑、快照和阅读定位。验收三类资料各一条完整阅读流程。</p>
+<h3 id="b">阶段 B：研究笔记与写作素材</h3>
+<p>完成原文摘录、思考、多主题关系、搜索、回顾和含出处引用。迁移现有原型的独立笔记存储，避免继续形成多个不能统一备份的数据来源。</p>
+<h3 id="c">阶段 C：数据集与可靠交付</h3>
+<p>发布 JSON Schema 和导出校验；完成范围预览、依赖处理、完整备份恢复及端到端测试。提供稳定的本地启动方式与数据位置说明。</p>
+<h3 id="d">阶段 D：增强能力</h3>
+<p>根据实际瓶颈再加入 OCR、浏览器扩展、引用样式、分块 JSONL、应用内 AI 问答和桌面安装包。</p>
+<p>工期需在检查现有项目解析、定位和数据库扩展能力后估算，本 PRD 不预设完成日期。</p>
+<h2 id="10">10. 待确认决策与默认方案</h2>
+<table>
+<thead>
+<tr>
+<th>决策</th>
+<th>默认方案</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用设备</td>
+<td>单人 Windows 本地使用</td>
+<td>暂不增加账号系统和云同步</td>
+</tr>
+<tr>
+<td>Word 范围</td>
+<td>首版 DOCX，DOC 后续转换</td>
+<td>控制格式兼容成本</td>
+</tr>
+<tr>
+<td>扫描材料占比</td>
+<td>首版提示需 OCR，P1 接入</td>
+<td>如扫描资料占多数，OCR 应提升为 P0</td>
+</tr>
+<tr>
+<td>网页采集</td>
+<td>URL 导入 + 手动粘贴兜底</td>
+<td>扩展留待高频采集验证后实现</td>
+</tr>
+<tr>
+<td>主题结构</td>
+<td>扁平主题 + 标签</td>
+<td>后续再考虑主题树</td>
+</tr>
+<tr>
+<td>引用格式</td>
+<td>通用出处文本</td>
+<td>指定期刊、学校模板后再适配</td>
+</tr>
+<tr>
+<td>AI 接入</td>
+<td>先完成可追溯 JSON 导出</td>
+<td>应用内问答和模型服务独立评审</td>
+</tr>
+<tr>
+<td>既有原型</td>
+<td>评估后复用阅读组件和导入能力</td>
+<td>不能因选了基座就降低追溯与备份要求</td>
+</tr>
+</tbody>
+</table>
+<p>首版完成标准：用户可以把三种常见资料转化为有出处的摘录和个人思考，按主题重新找到、引用并导出，且在重启和备份恢复后仍保持完整关联。</p></main>
+</div>
+<footer class="doc-foot">本 PRD 由产品负责人撰写，为对应 Koodo Reader 二次开发原型的目标需求文档 · 源文件见 GitHub 仓库 personal-literature-reader</footer>
+</body>
+</html>
