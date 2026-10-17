@@ -124,6 +124,16 @@ const DATA = {
   /* ---- 项目卡片（双语字段并列） ---- */
   projects: [
     {
+      tags: ["AI Commerce", { zh: "已部署 · 交互演示", en: "Live · Interactive demo", cls: "tag-live" }],
+      title: { zh: "文图 · 商家商品图文工作台", en: "Wentu · merchant content studio" },
+      desc: { zh: "面向商家上新场景，基于 MxPage 重做品牌与复古清新 UI，适配 DeepSeek JSON 模式。站内 Demo 展示商品资料整理、预设文案预览与导出；真实 AI 生图需本地运行并配置图片服务。",
+              en: "A merchant launch workspace built on MxPage, with new branding, a retro botanical UI and DeepSeek JSON-mode support. The demo covers product briefs, preset copy previews and export; real AI image generation requires the local app and an image provider." },
+      tools: "Next.js · DeepSeek · Pages",
+      link: "https://github.com/lemon150637/wentu",
+      demo: "demo/wentu/index.html",
+      demoEmoji: "文",
+    },
+    {
       tags: ["Web", { zh: "已部署", en: "Deployed", cls: "tag-live" }],
       title: { zh: "智慧识别 · AI 法律检索与分析网站", en: "Smart Legal ID · AI law search & analysis" },
       desc: { zh: "大白话查法条 + 智能分析报告。108 条民法典条文、25 个纠纷场景规则引擎，零依赖纯静态，含 SSRF 防护的云服务器版与自检脚本。",
